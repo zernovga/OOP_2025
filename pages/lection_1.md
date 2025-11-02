@@ -104,13 +104,89 @@ class Car {
 <v-switch>
 <template #0>
 
-<<< @/code/1/example_fun.py python
+```python {*}{maxHeight: '420px'}
+from statistics import mean
+
+cars = [
+    {"brand": "Toyota", "year": 2020, "price": 18000},
+    {"brand": "BMW", "year": 2022, "price": 35000},
+    {"brand": "Audi", "year": 2021, "price": 40000},
+    {"brand": "Ford", "year": 2019, "price": 22000},
+    {"brand": "Kia", "year": 2023, "price": 19500},
+]
+
+# 1. Фильтрация (только машины дороже 20 000)
+filtered = filter(lambda c: c["price"] > 20000, cars)
+
+# 2. Сортировка по году (от новых к старым)
+sorted_cars = sorted(filtered, key=lambda c: c["year"], reverse=True)
+
+# 3. Средняя цена
+average_price = mean(map(lambda c: c["price"], sorted_cars))
+
+print("Отфильтрованные и отсортированные машины:")
+for c in sorted_cars:
+    print(f"{c['brand']} ({c['year']}): ${c['price']}")
+
+print(f"\nСредняя цена: ${average_price:.2f}")
+
+```
 
 </template>
 
 <template #1>
 
-<<< @/code/1/example_oop.py python
+```python {*}{maxHeight: '420px'}
+from statistics import mean
+
+
+class Car:
+    def __init__(self, brand, year, price):
+        self.brand = brand
+        self.year = year
+        self.price = price
+
+    def __repr__(self):
+        return f"{self.brand} ({self.year}): ${self.price}"
+
+
+class CarDataset:
+    def __init__(self, cars):
+        self.cars = cars
+
+    def filter_by_price(self, min_price):
+        self.cars = [car for car in self.cars if car.price > min_price]
+        return self
+
+    def sort_by_year(self, reverse=True):
+        self.cars.sort(key=lambda c: c.year, reverse=reverse)
+        return self
+
+    def average_price(self):
+        return mean(car.price for car in self.cars)
+
+    def show(self):
+        for car in self.cars:
+            print(car)
+
+
+# Использование
+cars = [
+    Car("Toyota", 2020, 18000),
+    Car("BMW", 2022, 35000),
+    Car("Audi", 2021, 40000),
+    Car("Ford", 2019, 22000),
+    Car("Kia", 2023, 19500),
+]
+
+dataset = CarDataset(cars)
+dataset.filter_by_price(20000).sort_by_year()
+
+print("Отфильтрованные и отсортированные машины:")
+dataset.show()
+
+print(f"\nСредняя цена: ${dataset.average_price():.2f}")
+```
 
 </template>
 </v-switch>
