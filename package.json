@@ -1,0 +1,40 @@
+{
+  "name": "pages",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "build": "slidev build",
+    "dev": "slidev --open",
+    "export": "slidev export --with-clicks"
+  },
+  "dependencies": {
+    "@slidev/cli": "^0.50.0-beta.10",
+    "@slidev/theme-default": "latest",
+    "@slidev/theme-seriph": "latest",
+    "slidev-theme-sirius-college": "latest",
+    "vue": "^3.5.13"
+  },
+  "devDependencies": {
+    "playwright-chromium": "^1.56.1",
+    "prettier": "^3.3.3",
+    "prettier-plugin-slidev": "^1.0.5"
+  },
+  "prettier": {
+    "overrides": [
+      {
+        "files": [
+          "slides.md",
+          "pages/*.md",
+          "slides/lection_*/slides.md",
+          "slides/lection_*.md"
+        ],
+        "options": {
+          "parser": "slidev",
+          "plugins": [
+            "prettier-plugin-slidev"
+          ]
+        }
+      }
+    ]
+  }
+}
