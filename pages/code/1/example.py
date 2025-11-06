@@ -1,24 +1,52 @@
 from statistics import mean
 
-cars = [
-    {"brand": "Toyota", "year": 2020, "price": 18000},
-    {"brand": "BMW", "year": 2022, "price": 35000},
-    {"brand": "Audi", "year": 2021, "price": 40000},
-    {"brand": "Ford", "year": 2019, "price": 22000},
-    {"brand": "Kia", "year": 2023, "price": 19500},
-]
+
+class Car:
+    def __init__(self, brand, year, price):
+        self.brand = brand
+        self.year = year
+        self.price = price
+
+    def __repr__(self):
+        return f"{self.brand} ({self.year}): {self.price} Руб."
+
+
+class CarDatabase:
+    def __init__(self, cars: list[Car]):
+        self.cars = cars
+
+    def filter_by_price(self, min_price: int):
+        self.cars = [car for car in self.cars if car.price > min_price]
+        return self
+
+    def sorted_by_year(self, reverse=True):
+        self.cars.sort(key=lambda x: x.year, reverse=reverse)
+        return self
+
+    def average_price(self):
+        return mean(car.price for car in self.cars)
+
+    def show(self):
+        for car in self.cars:
+            print(car)
+
+
+db = CarDatabase(
+    [
+        Car("Toyota", 2020, 18000),
+        Car("BMW", 2022, 35000),
+        Car("Audi", 2021, 40000),
+        Car("Ford", 2019, 22000),
+        Car("Kia", 2023, 19500),
+    ]
+)
 
 # 1. Фильтрация (только машины дороже 20 000)
-filtered = filter(lambda c: c["price"] > 20000, cars)
-
 # 2. Сортировка по году (от новых к старым)
-sorted_cars = sorted(filtered, key=lambda c: c["year"], reverse=True)
+db.filter_by_price(20_000).sorted_by_year()
 
-# 3. Средняя цена
-average_price = mean(map(lambda c: c["price"], sorted_cars))
 
 print("Отфильтрованные и отсортированные машины:")
-for c in sorted_cars:
-    print(f"{c['brand']} ({c['year']}): ${c['price']}")
+db.show()
 
-print(f"\nСредняя цена: ${average_price:.2f}")
+print(f"\nСредняя цена: ${db.average_price():.2f}")
