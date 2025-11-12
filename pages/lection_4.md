@@ -122,7 +122,7 @@ make_animal_speak(my_cat)
 <v-click>
 
 ::center
-![alt text](/imgs/4/image2.png){width=420px lazy}
+![alt text](./imgs/4/image2.png){width=420px lazy}
 ::
 
 </v-click>
@@ -301,7 +301,7 @@ finally:
 # Пользовательские исключения
 
 ::center
-![alt text](/imgs/4/image.png){width=850px lazy}
+![alt text](./imgs/4/image.png){width=850px lazy}
 ::
 
 ---
